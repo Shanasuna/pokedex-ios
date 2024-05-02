@@ -1,0 +1,4 @@
+*.generated.swift
+**/xcshareddata/
+Pods
+**/xcuserdata
