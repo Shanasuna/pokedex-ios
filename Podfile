@@ -11,6 +11,8 @@ target 'Pokedex' do
   pod 'IQKeyboardManagerSwift'
   pod 'ProgressHUD'
   pod 'SnapKit'
+  pod 'Kingfisher'
+  pod 'Swinject'
 
   target 'PokedexTests' do
     inherit! :search_paths

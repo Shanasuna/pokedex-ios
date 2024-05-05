@@ -8,18 +8,40 @@
 
 enum PokemonList {
   
-  enum Something {
+  struct DisplayPokemon {
+    let name: String
+    let imageUrl: String
+    let linkUrl: String
+  }
+  
+  enum GetPokemons {
     
     struct Request {
-      
+      let forceReload: Bool
     }
     
     struct Response {
-      
+      let pokemons: [Pokemon]
     }
     
     struct ViewModel {
-      
+      let pokemons: [DisplayPokemon]
+    }
+    
+  }
+  
+  enum SearchPokemons {
+    
+    struct Request {
+      let keyword: String
+    }
+    
+    struct Response {
+      let pokemons: [Pokemon]
+    }
+    
+    struct ViewModel {
+      let pokemons: [DisplayPokemon]
     }
     
   }

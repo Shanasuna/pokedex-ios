@@ -7,11 +7,24 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import Swinject
+
+let container: Container = {
+  let container = Container()
+  
+  container.register(PokemonRepository.self) { _ in
+    return PokemonRepositoryImp()
+  }
+  
+  container.register(PokemonUseCase.self) { resolver in
+    return PokemonUseCaseImp(pokemonRepository: resolver.resolve(PokemonRepository.self)!)
+  }
+  
+  return container
+}()
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-  
-  
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.

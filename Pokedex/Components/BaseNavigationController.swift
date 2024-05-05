@@ -15,15 +15,13 @@ class BaseNavigationController: UINavigationController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    interactivePopGestureRecognizer?.delegate = self
-    
     isNavigationBarHidden = false
     
     view.backgroundColor = R.color.bg.callAsFunction()
     navigationBar.backgroundColor = R.color.bg.callAsFunction()
     navigationBar.tintColor = R.color.text_black.callAsFunction()
-//    navigationBar.barTintColor = R.color.text_black.callAsFunction()
-    navigationBar.isTranslucent = false
+    navigationBar.barTintColor = R.color.bg.callAsFunction()
+    navigationBar.isTranslucent = true
     navigationBar.titleTextAttributes = [ NSAttributedString.Key.foregroundColor: R.color.text_black.callAsFunction() ?? UIColor.black ]
     
     navigationBar.backItem?.backBarButtonItem = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
@@ -39,16 +37,3 @@ class BaseNavigationController: UINavigationController {
   }
   
 }
-
-extension BaseNavigationController: UIGestureRecognizerDelegate {
-  
-  func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-    guard let interactivePopGestureRecognizer = interactivePopGestureRecognizer,
-      gestureRecognizer == interactivePopGestureRecognizer
-      else { return true }
-
-    return viewControllers.count > 1
-  }
-  
-}
-

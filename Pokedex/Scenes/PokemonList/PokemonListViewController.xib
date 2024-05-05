@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PokemonListViewController" customModule="Pokedex" customModuleProvider="target">
             <connections>
+                <outlet property="searchBar" destination="b0g-di-Exo" id="Lzg-Qh-qa6"/>
                 <outlet property="tableView" destination="lcO-ru-5Hx" id="OIh-ZU-MyP"/>
                 <outlet property="view" destination="iN0-l3-epB" id="cZF-jF-rQz"/>
             </connections>
@@ -19,18 +20,28 @@
             <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="b0g-di-Exo">
+                    <rect key="frame" x="0.0" y="91" width="390" height="56"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="Fkq-tI-aB0"/>
+                    </connections>
+                </searchBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="lcO-ru-5Hx">
-                    <rect key="frame" x="0.0" y="91" width="390" height="719"/>
+                    <rect key="frame" x="0.0" y="147" width="390" height="663"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="bg"/>
             <constraints>
-                <constraint firstItem="lcO-ru-5Hx" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="6Yi-DB-ad8"/>
+                <constraint firstItem="b0g-di-Exo" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="8eg-2f-2lL"/>
                 <constraint firstItem="lcO-ru-5Hx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="DxL-HP-h0M"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="lcO-ru-5Hx" secondAttribute="bottom" id="FGv-ez-PFO"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="lcO-ru-5Hx" secondAttribute="trailing" id="NIF-zW-y1q"/>
+                <constraint firstItem="b0g-di-Exo" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="TPp-jP-cNz"/>
+                <constraint firstItem="b0g-di-Exo" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="pKR-z5-pTU"/>
+                <constraint firstItem="lcO-ru-5Hx" firstAttribute="top" secondItem="b0g-di-Exo" secondAttribute="bottom" id="uup-Dt-R5T"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <point key="canvasLocation" x="-50" y="-15"/>

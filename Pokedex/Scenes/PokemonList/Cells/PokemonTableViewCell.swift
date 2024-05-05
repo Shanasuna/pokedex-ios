@@ -25,4 +25,9 @@ class PokemonTableViewCell: UITableViewCell {
     // Configure the view for the selected state
   }
   
+  func display(viewModel: PokemonList.DisplayPokemon) {
+    pokemonImageView.setImage(url: viewModel.imageUrl)
+    nameLabel.text = viewModel.name
+  }
+  
 }

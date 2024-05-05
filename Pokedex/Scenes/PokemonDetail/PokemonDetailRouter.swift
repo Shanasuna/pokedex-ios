@@ -18,9 +18,9 @@ protocol PokemonDetailDataPassing {
 
 class PokemonDetailRouter: NSObject, PokemonDetailDataPassing {
   
-  class func newInstance() -> PokemonDetailViewController {
+  class func newInstance(linkUrl: String) -> PokemonDetailViewController {
     let viewController = PokemonDetailViewController(nibName: String(describing: PokemonDetailViewController.self), bundle: nil)
-    let interactor = PokemonDetailInteractor()
+    let interactor = PokemonDetailInteractor(pokemonUseCase: PokemonUseCaseImp(pokemonRepository: PokemonRepositoryImp()))
     let presenter = PokemonDetailPresenter()
     let router = PokemonDetailRouter()
     
@@ -34,7 +34,7 @@ class PokemonDetailRouter: NSObject, PokemonDetailDataPassing {
     router.viewController = viewController
     router.dataStore = interactor
     
-    // router.dataStore?.something = something
+    router.dataStore?.linkUrl = linkUrl
     
     return viewController
   }

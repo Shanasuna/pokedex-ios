@@ -32,22 +32,6 @@ class BaseViewController: UIViewController {
   }
   
   // MARK: - Functions
-    
-  func presentVC(vc: UIViewController) {
-    present(vc, animated: true)
-  }
-  
-  func dismissOrPop(animation: Bool = true, dismissHandler: (() -> Void)? = nil) {
-    if let navigation = navigationController, self != navigation.viewControllers.first {
-      navigation.popViewController(animated: animation)
-      
-      dismissHandler?()
-    } else {
-      dismiss(animated: animation) {
-        dismissHandler?()
-      }
-    }
-  }
   
   
   // MARK: - Actions
@@ -69,6 +53,8 @@ extension BaseViewController: BaseDisplayLogic {
   }
   
   func displayError(title: String?, message: String?, okHandler: (() -> Void)?) {
+    dismissLoadingHUD()
+    
     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
       okHandler?()

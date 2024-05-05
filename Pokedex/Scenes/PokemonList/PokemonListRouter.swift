@@ -10,6 +10,8 @@ import UIKit
 
 protocol PokemonListRoutingLogic {
   func back()
+  
+  func routeToDetail(linkUrl: String)
 }
 
 protocol PokemonListDataPassing {
@@ -34,8 +36,6 @@ class PokemonListRouter: NSObject, PokemonListDataPassing {
     router.viewController = viewController
     router.dataStore = interactor
     
-    // router.dataStore?.something = something
-    
     return viewController
   }
   
@@ -50,6 +50,11 @@ extension PokemonListRouter: PokemonListRoutingLogic {
   
   func back() {
     viewController?.dismissOrPop()
+  }
+  
+  func routeToDetail(linkUrl: String) {
+    let vc = PokemonDetailRouter.newInstance(linkUrl: linkUrl)
+    viewController?.pushVC(vc: vc)
   }
   
 }

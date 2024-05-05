@@ -8,18 +8,27 @@
 
 enum PokemonDetail {
   
-  enum Something {
+  struct DisplayPokemon {
+    let imageUrl: String
+    let name: String
+    let weight: String
+    let height: String
+    let types: String
+    let abilities: String
+  }
+  
+  enum GetInfo {
     
     struct Request {
       
     }
     
     struct Response {
-      
+      let pokemon: Pokemon
     }
     
     struct ViewModel {
-      
+      let pokemon: DisplayPokemon
     }
     
   }
