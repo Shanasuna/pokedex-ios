@@ -8,7 +8,24 @@
 import Foundation
 import Alamofire
 
-protocol PokemonRepository {
-  func getPokemons(linkUrl: String?, limit: Int) async -> DataResponse<PagingResponse<Pokemon>, AFError>
-  func getPokemonInfo(linkUrl: String) async -> DataResponse<Pokemon, AFError>
+class PokemonRepository: PokemonRepositoryDependencies {
+  
+  func getPokemons(linkUrl: String?, limit: Int) async -> DataResponse<PagingResponse<Pokemon>, AFError> {
+    let url = linkUrl ?? "\(ServiceURLs.BASE_URL)/pokemon?limit=\(limit)"
+    
+    return await withCheckedContinuation { continuation in
+      AF.request(url).responseDecodable { (response: DataResponse<PagingResponse<Pokemon>, AFError>) in
+        continuation.resume(returning: response)
+      }
+    }
+  }
+  
+  func getPokemonInfo(linkUrl: String) async -> DataResponse<Pokemon, AFError> {
+    return await withCheckedContinuation { continuation in
+      AF.request(linkUrl).responseDecodable { (response: DataResponse<Pokemon, AFError>) in
+        continuation.resume(returning: response)
+      }
+    }
+  }
+  
 }

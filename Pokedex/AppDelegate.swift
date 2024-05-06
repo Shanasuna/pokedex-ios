@@ -12,12 +12,12 @@ import Swinject
 let container: Container = {
   let container = Container()
   
-  container.register(PokemonRepository.self) { _ in
-    return PokemonRepositoryImp()
+  container.register(PokemonRepositoryDependencies.self) { _ in
+    return PokemonRepository()
   }
   
-  container.register(PokemonUseCase.self) { resolver in
-    return PokemonUseCaseImp(pokemonRepository: resolver.resolve(PokemonRepository.self)!)
+  container.register(PokemonUseCaseDependencies.self) { resolver in
+    return PokemonUseCase(pokemonRepository: resolver.resolve(PokemonRepositoryDependencies.self)!)
   }
   
   return container

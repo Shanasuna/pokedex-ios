@@ -22,7 +22,7 @@ class PokemonListInteractor: PokemonListDataStore {
   // MARK: - Properties
   var presenter: PokemonListPresentationLogic?
   
-  private let pokemonUseCase: PokemonUseCase = container.resolve(PokemonUseCase.self)!
+  private let pokemonUseCase: PokemonUseCaseDependencies = container.resolve(PokemonUseCaseDependencies.self)!
   
   private var pokemons: [Pokemon] = []
   

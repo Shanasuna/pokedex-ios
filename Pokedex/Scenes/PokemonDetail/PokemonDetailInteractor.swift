@@ -21,9 +21,9 @@ class PokemonDetailInteractor: PokemonDetailDataStore {
   // MARK: - Properties
   var presenter: PokemonDetailPresentationLogic?
   
-  private let pokemonUseCase: PokemonUseCase
+  private let pokemonUseCase: PokemonUseCaseDependencies
   
-  init(pokemonUseCase: PokemonUseCase) {
+  init(pokemonUseCase: PokemonUseCaseDependencies) {
     self.pokemonUseCase = pokemonUseCase
   }
   

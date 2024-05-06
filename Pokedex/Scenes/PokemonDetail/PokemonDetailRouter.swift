@@ -20,7 +20,7 @@ class PokemonDetailRouter: NSObject, PokemonDetailDataPassing {
   
   class func newInstance(linkUrl: String) -> PokemonDetailViewController {
     let viewController = PokemonDetailViewController(nibName: String(describing: PokemonDetailViewController.self), bundle: nil)
-    let interactor = PokemonDetailInteractor(pokemonUseCase: PokemonUseCaseImp(pokemonRepository: PokemonRepositoryImp()))
+    let interactor = PokemonDetailInteractor(pokemonUseCase: container.resolve(PokemonUseCaseDependencies.self)!)
     let presenter = PokemonDetailPresenter()
     let router = PokemonDetailRouter()
     
