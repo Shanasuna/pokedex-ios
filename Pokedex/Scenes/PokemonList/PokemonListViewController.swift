@@ -16,10 +16,12 @@ protocol PokemonListDisplayLogic: BaseDisplayLogic {
 class PokemonListViewController: BaseViewController {
   
   // MARK: - Static Properties
+  let ITEMS_PER_ROW: Int = 3
+  let ITEM_SPACING: CGFloat = 8
   
   // MARK: - IBOutlet Properties
   @IBOutlet weak var searchBar: UISearchBar!
-  @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var collectionView: UICollectionView!
   
   // MARK: - Properties
   var interactor: PokemonListBusinessLogic?
@@ -43,10 +45,10 @@ class PokemonListViewController: BaseViewController {
     
     searchBar.delegate = self
     
-    tableView.register(R.nib.pokemonTableViewCell)
+    collectionView.register(R.nib.pokemonCollectionViewCell)
     
-    tableView.dataSource = self
-    tableView.delegate = self
+    collectionView.dataSource = self
+    collectionView.delegate = self
   }
   
   private func getPokemons() {
@@ -64,37 +66,58 @@ extension PokemonListViewController: PokemonListDisplayLogic {
     dismissLoadingHUD()
     
     pokemons = viewModel.pokemons
-    tableView.reloadData()
+    collectionView.reloadData()
   }
   
   func displaySearchPokemons(viewModel: PokemonList.SearchPokemons.ViewModel) {
     dismissLoadingHUD()
     
     pokemons = viewModel.pokemons
-    tableView.reloadData()
+    collectionView.reloadData()
   }
   
 }
 
-// MARK: - TableView DataSource & Delegate
-extension PokemonListViewController: UITableViewDataSource, UITableViewDelegate {
+// MARK: - Collectioniew DataSource & Delegate
+extension PokemonListViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
   
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    return .init(top: ITEM_SPACING, left: ITEM_SPACING, bottom: ITEM_SPACING, right: ITEM_SPACING)
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return ITEM_SPACING
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    return ITEM_SPACING
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    let width = (collectionView.frame.width - ((CGFloat(ITEMS_PER_ROW) + 1) * ITEM_SPACING)) / CGFloat(ITEMS_PER_ROW)
+    
+    print("collectionView.frame.width: \(collectionView.frame.width)")
+    print("cell width: \(width)")
+    
+    return .init(width: width, height: width + 40)
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return pokemons.count
   }
   
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.pokemonTableViewCell, for: indexPath)!
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.pokemonCollectionViewCell, for: indexPath)!
     
-    if let pokemon = pokemons[safe: indexPath.row] {
+    if let pokemon = pokemons[safe: indexPath.item] {
       cell.display(viewModel: pokemon)
     }
     
     return cell
   }
   
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    guard let linkUrl = pokemons[safe: indexPath.row]?.linkUrl else { return }
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    guard let linkUrl = pokemons[safe: indexPath.item]?.linkUrl else { return }
     router?.routeToDetail(linkUrl: linkUrl)
   }
   
